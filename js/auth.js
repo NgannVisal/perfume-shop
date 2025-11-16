@@ -11,8 +11,8 @@ const tabRegister = document.getElementById("tabRegister");
 const loginForm = document.getElementById("loginForm");
 const registerForm = document.getElementById("registerForm");
 
-// API base
-const API = "http://localhost:5000/api";
+// API base (Render URL)
+const API = "https://perfume-shop-api.onrender.com/api";
 
 // Switch to Register
 tabRegister.addEventListener("click", () => {
