@@ -1,5 +1,5 @@
 // ===== API base =====
-const API = "https://perfume-shop-api.onrender.com/api";
+const API = "https://perfume-shop-api.onrender.com/api/products";
 
 // ===== modal & form refs =====
 const modal = document.getElementById("adminModal");
@@ -30,14 +30,16 @@ const btnDelete = document.getElementById("btnDelete");
 function openModal(mode, title) {
   fMode.value = mode;
   modalTitle.textContent = title;
-  rowId.classList.toggle("hidden", mode === "add"); 
+  rowId.classList.toggle("hidden", mode === "add");
   modal.classList.remove("hidden");
 }
+
 function closeModal() {
   modal.classList.add("hidden");
   adminForm.reset();
   fId.value = "";
 }
+
 function showToast(msg, ok = true) {
   toast.textContent = msg;
   toast.style.background = ok
@@ -49,35 +51,43 @@ function showToast(msg, ok = true) {
 
 // ===== API calls =====
 async function addProduct(product) {
-  const r = await fetch(API_BASE, {
+  const res = await fetch(API, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(product)
   });
-  if (!r.ok) throw new Error("Add failed");
-  return r.json();
+
+  if (!res.ok) throw new Error("Add failed");
+  return res.json();
 }
+
 async function updateProduct(id, product) {
-  const r = await fetch(`${API_BASE}/${id}`, {
+  const res = await fetch(`${API}/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(product)
   });
-  if (!r.ok) throw new Error("Update failed");
-  return r.json();
+
+  if (!res.ok) throw new Error("Update failed");
+  return res.json();
 }
+
 async function deleteProduct(id) {
-  const r = await fetch(`${API_BASE}/${id}`, { method: "DELETE" });
-  if (!r.ok) throw new Error("Delete failed");
-  return r.json();
+  const res = await fetch(`${API}/${id}`, {
+    method: "DELETE"
+  });
+
+  if (!res.ok) throw new Error("Delete failed");
+  return res.json();
 }
+
 async function getProductById(id) {
-  const r = await fetch(API_BASE);
-  const list = await r.json();
+  const res = await fetch(API);
+  const list = await res.json();
   return list.find(p => String(p.id) === String(id));
 }
 
-// ===== refresh main page product list =====
+// ===== refresh homepage list =====
 function refreshProductsUI() {
   if (window.fetchProducts) {
     fetchProducts().then(() => {
@@ -94,43 +104,53 @@ btnAdd?.addEventListener("click", () => {
 btnUpdate?.addEventListener("click", async () => {
   const id = prompt("Enter Product ID to edit:");
   if (!id) return;
+
   const p = await getProductById(id);
-  if (!p) { showToast("Product not found", false); return; }
+  if (!p) {
+    showToast("Product not found", false);
+    return;
+  }
+
   openModal("update", "Update product");
   fId.value = p.id;
-  fName.value = p.name || "";
-  fBrand.value = p.brand || "";
-  fPrice.value = p.price || 0;
-  fTag.value = p.tag || "";
-  fRating.value = p.rating || 0;
-  fImage.value = p.image || "";
-  fDesc.value = p.description || "";
+  fName.value = p.name;
+  fBrand.value = p.brand;
+  fPrice.value = p.price;
+  fTag.value = p.tag;
+  fRating.value = p.rating;
+  fImage.value = p.image;
+  fDesc.value = p.description;
 });
 
 btnDelete?.addEventListener("click", async () => {
   const id = prompt("Enter Product ID to delete:");
   if (!id) return;
+
   if (!confirm("Delete product #" + id + "?")) return;
+
   try {
     await deleteProduct(id);
     showToast("Deleted 🗑️");
     refreshProductsUI();
-  } catch (e) {
-    console.error(e);
+  } catch (err) {
+    console.error(err);
     showToast("Delete failed", false);
   }
 });
 
-// modal close
+// Modal close
 modalClose.addEventListener("click", closeModal);
 cancelForm.addEventListener("click", closeModal);
-modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
 
-// form submit
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) closeModal();
+});
+
+// Form submit
 adminForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const payload = {
+  const product = {
     name: fName.value.trim(),
     brand: fBrand.value.trim(),
     price: Number(fPrice.value),
@@ -142,13 +162,14 @@ adminForm.addEventListener("submit", async (e) => {
 
   try {
     if (fMode.value === "add") {
-      await addProduct(payload);
+      await addProduct(product);
       showToast("Product added ✅");
     } else {
-      if (!fId.value) { showToast("Missing product ID", false); return; }
-      await updateProduct(fId.value, payload);
+      if (!fId.value) return showToast("Missing ID", false);
+      await updateProduct(fId.value, product);
       showToast("Product updated ✅");
     }
+
     closeModal();
     refreshProductsUI();
 

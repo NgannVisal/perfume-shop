@@ -3,6 +3,9 @@
    With session save (localStorage)
    ====================================================== */
 
+// Render API URL (LIVE)
+const API = "https://perfume-shop-api.onrender.com/api";
+
 // Tabs
 const tabLogin = document.getElementById("tabLogin");
 const tabRegister = document.getElementById("tabRegister");
@@ -10,10 +13,6 @@ const tabRegister = document.getElementById("tabRegister");
 // Forms
 const loginForm = document.getElementById("loginForm");
 const registerForm = document.getElementById("registerForm");
-
-// Render API URL (LIVE)
-const API = "https://perfume-shop-api.onrender.com/api";
-
 
 // Switch to Register
 tabRegister.addEventListener("click", () => {
@@ -32,7 +31,6 @@ tabLogin.addEventListener("click", () => {
   registerForm.classList.add("hidden");
   loginForm.classList.remove("hidden");
 });
-
 
 /* =============================
    REGISTER
@@ -61,7 +59,6 @@ registerForm.addEventListener("submit", async (e) => {
   regMsg.style.color = "green";
   regMsg.textContent = "🎉 Account created! Please login.";
 });
-
 
 /* =============================
    LOGIN (Saves Session)
