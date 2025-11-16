@@ -11,7 +11,7 @@ const tabRegister = document.getElementById("tabRegister");
 const loginForm = document.getElementById("loginForm");
 const registerForm = document.getElementById("registerForm");
 
-// API base (Render URL)
+// Render API URL (LIVE)
 const API = "https://perfume-shop-api.onrender.com/api";
 
 
@@ -32,6 +32,7 @@ tabLogin.addEventListener("click", () => {
   registerForm.classList.add("hidden");
   loginForm.classList.remove("hidden");
 });
+
 
 /* =============================
    REGISTER
@@ -58,7 +59,7 @@ registerForm.addEventListener("submit", async (e) => {
   }
 
   regMsg.style.color = "green";
-  regMsg.textContent = "🎉 Account created successfully! Please login.";
+  regMsg.textContent = "🎉 Account created! Please login.";
 });
 
 
@@ -85,7 +86,7 @@ loginForm.addEventListener("submit", async (e) => {
     return;
   }
 
-  // Save user into browser
+  // Save user to browser
   localStorage.setItem("user", JSON.stringify({
     id: data.user.id,
     username: data.user.username,
@@ -93,7 +94,7 @@ loginForm.addEventListener("submit", async (e) => {
   }));
 
   loginMsg.style.color = "green";
-  loginMsg.textContent = "Login success! Going home...";
+  loginMsg.textContent = "✔ Login success! Redirecting...";
 
   setTimeout(() => {
     window.location.href = "index.html";
