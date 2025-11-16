@@ -18,11 +18,11 @@ const db = new Pool({
   ssl: { rejectUnauthorized: false }
 });
 
-
 // TEST DB
 db.query("SELECT NOW()")
   .then(() => console.log("✅ PostgreSQL Connected"))
   .catch(err => console.error("❌ DB ERROR:", err));
+
 
 // =======================
 // PRODUCTS CRUD
@@ -83,32 +83,46 @@ app.delete("/api/products/:id", async (req, res) => {
   }
 });
 
+
 // =======================
 // AUTH
 // =======================
 
-// REGISTER
+// REGISTER — FIXED!
 app.post("/api/register", async (req, res) => {
   const { username, email, password } = req.body;
 
-  if (!username || !email || !password)
-    return res.status(400).json({ error: "Missing fields" });
-
-  const hashed = await bcrypt.hash(password, 10);
+  if (!username || !email || !password) {
+    return res.status(400).json({ error: "All fields required" });
+  }
 
   try {
-    await db.query(
-      "INSERT INTO users (username, email, password) VALUES ($1, $2, $3)",
+    const exists = await db.query("SELECT id FROM users WHERE email = $1", [email]);
+
+    if (exists.rows.length > 0) {
+      return res.status(400).json({ error: "Email already exists" });
+    }
+
+    const hashed = await bcrypt.hash(password, 10);
+
+    const newUser = await db.query(
+      "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id, username, email",
       [username, email, hashed]
     );
 
-    res.json({ message: "User registered!" });
+    return res.json({
+      message: "User registered!",
+      user: newUser.rows[0]
+    });
+
   } catch (err) {
-    res.status(400).json({ error: "Email already exists" });
+    console.error("REGISTER ERROR:", err);
+    return res.status(500).json({ error: "Server error" });
   }
 });
 
-// LOGIN
+
+// LOGIN — stays same
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -139,6 +153,7 @@ app.post("/api/login", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 // =======================
 // START SERVER
