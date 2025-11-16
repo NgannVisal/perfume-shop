@@ -1,73 +1,88 @@
 const express = require("express");
-const mysql = require("mysql2");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
+const { Pool } = require("pg");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use(express.static(__dirname)); // allow html, js, images
+app.use(express.static(__dirname));
 
-// DB CONNECTION
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME
+// DB: PostgreSQL
+const db = new Pool({
+  host: process.env.PGHOST,
+  user: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  database: process.env.PGDATABASE,
+  port: process.env.PGPORT
 });
 
-
-db.connect(err => {
-  if (err) throw err;
-  console.log("✅ MySQL Connected");
-});
+// TEST DB
+db.query("SELECT NOW()")
+  .then(() => console.log("✅ PostgreSQL Connected"))
+  .catch(err => console.error("❌ DB ERROR:", err));
 
 // =======================
 // PRODUCTS CRUD
 // =======================
 
 // CREATE product
-app.post("/api/products", (req, res) => {
+app.post("/api/products", async (req, res) => {
   const { name, brand, price, image, tag, rating, description } = req.body;
-  const sql =
-    "INSERT INTO products (name, brand, price, image, tag, rating, description) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-  db.query(sql, [name, brand, price, image, tag, rating, description], (err, result) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json({ id: result.insertId, ...req.body });
-  });
+  const sql = `
+    INSERT INTO products (name, brand, price, image, tag, rating, description)
+    VALUES ($1, $2, $3, $4, $5, $6, $7)
+    RETURNING *;
+  `;
+
+  try {
+    const result = await db.query(sql, [name, brand, price, image, tag, rating, description]);
+    res.json(result.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // GET all products
-app.get("/api/products", (req, res) => {
-  db.query("SELECT * FROM products", (err, rows) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(rows);
-  });
+app.get("/api/products", async (req, res) => {
+  try {
+    const rows = await db.query("SELECT * FROM products");
+    res.json(rows.rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // UPDATE product
-app.put("/api/products/:id", (req, res) => {
+app.put("/api/products/:id", async (req, res) => {
   const { name, brand, price, image, tag, rating, description } = req.body;
-  const sql =
-    "UPDATE products SET name=?, brand=?, price=?, image=?, tag=?, rating=?, description=? WHERE id=?";
 
-  db.query(sql, [name, brand, price, image, tag, rating, description, req.params.id], (err) => {
-    if (err) return res.status(500).json({ error: err.message });
+  const sql = `
+    UPDATE products SET name=$1, brand=$2, price=$3, image=$4, tag=$5, rating=$6, description=$7
+    WHERE id=$8;
+  `;
+
+  try {
+    await db.query(sql, [name, brand, price, image, tag, rating, description, req.params.id]);
     res.json({ message: "updated" });
-  });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // DELETE product
-app.delete("/api/products/:id", (req, res) => {
-  db.query("DELETE FROM products WHERE id=?", [req.params.id], (err) => {
-    if (err) return res.status(500).json({ error: err.message });
+app.delete("/api/products/:id", async (req, res) => {
+  try {
+    await db.query("DELETE FROM products WHERE id=$1", [req.params.id]);
     res.json({ message: "deleted" });
-  });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // =======================
-// AUTH SYSTEM
+// AUTH
 // =======================
 
 // REGISTER
@@ -79,34 +94,37 @@ app.post("/api/register", async (req, res) => {
 
   const hashed = await bcrypt.hash(password, 10);
 
-  db.query(
-    "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
-    [username, email, hashed],
-    (err, result) => {
-      if (err) {
-        return res.status(400).json({ error: "Email already exists" });
-      }
+  try {
+    await db.query(
+      "INSERT INTO users (username, email, password) VALUES ($1, $2, $3)",
+      [username, email, hashed]
+    );
 
-      res.json({ message: "User registered!" });
-    }
-  );
+    res.json({ message: "User registered!" });
+  } catch (err) {
+    res.status(400).json({ error: "Email already exists" });
+  }
 });
 
 // LOGIN
-app.post("/api/login", (req, res) => {
+app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
 
-  db.query("SELECT * FROM users WHERE email=?", [email], async (err, rows) => {
-    if (err || rows.length === 0)
+  try {
+    const result = await db.query(
+      "SELECT * FROM users WHERE email=$1",
+      [email]
+    );
+
+    if (result.rows.length === 0)
       return res.status(400).json({ error: "Email not found" });
 
-    const user = rows[0];
-
-    // compare hash
+    const user = result.rows[0];
     const match = await bcrypt.compare(password, user.password);
-    if (!match) return res.status(400).json({ error: "Wrong password" });
 
-    // return safe data
+    if (!match)
+      return res.status(400).json({ error: "Wrong password" });
+
     res.json({
       message: "Login OK",
       user: {
@@ -115,7 +133,9 @@ app.post("/api/login", (req, res) => {
         email: user.email
       }
     });
-  });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // =======================
@@ -123,5 +143,5 @@ app.post("/api/login", (req, res) => {
 // =======================
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log("Server running on port", PORT);
+  console.log("🚀 Server running on port", PORT);
 });
