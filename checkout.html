@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | Perfume Atelier</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Checkout</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="cart.html">Cart</a>
+    </nav>
+  </header>
+
+  <main class="checkout-form">
+    <form onsubmit="placeOrder(event)">
+      <h2>Shipping Information</h2>
+      <label>Full Name</label>
+      <input type="text" id="name" required>
+
+      <label>Address</label>
+      <input type="text" id="address" required>
+
+      <label>Phone</label>
+      <input type="tel" id="phone" required>
+
+      <h2>Payment Method</h2>
+      <select id="payment-method" required>
+        <option value="">Choose method</option>
+        <option value="credit">Credit Card</option>
+        <option value="paypal">PayPal</option>
+        <option value="cod">Cash on Delivery</option>
+      </select>
+
+      <button type="submit" class="btn-checkout">Place Order</button>
+    </form>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Afternoon Swim",
+    "brand": "Louis Vuitton",
+    "price": 500.00,
+    "image": "assets/images/afterswim.jpg",
+    "tag": "Bestseller",
+    "rating": 4.9,
+    "description": "Warm amber and smoky woods, modern and unforgettable."
+  },
+  {
+    "id": 2,
+    "name": "Parcific Chill",
+    "brand": "Louis Vuitton",
+    "price": 476.00,
+    "image": "assets/images/parcific.jpg",
+    "tag": "New",
+    "rating": 4.7,
+    "description": "Bright citrus top, soft floral heart, clean musk finish."
+  },
+  {
+    "id": 3,
+    "name": "Imagination",
+    "brand": "Louis Vuitton",
+    "price": 395.00,
+    "image": "assets/images/imagination.jpg",
+    "tag": "Popular",
+    "rating": 4.6,
+    "description": "Fresh cedar balanced with jasmine and bergamot."
+  },
+  {
+    "id": 4,
+    "name": "Sun Song",
+    "brand": "Louis Vuitton",
+    "price": 795.00,
+    "image": "assets/images/sunsong.jpg",
+    "tag": "Luxury",
+    "rating": 4.8,
+    "description": "Opulent floral heart with silky sandalwood."
+  },
+  {
+    "id": 5,
+    "name": "City of star",
+    "brand": "Louis Vuitton",
+    "price": 300.00,
+    "image": "assets/images/city",
+    "tag": "Everyday",
+    "rating": 4.4,
+    "description": "Zesty and bright, perfect for daytime refresh."
+  },
+  {
+    "id": 6,
+    "name": "Météore",
+    "brand": "Louis Vuitton",
+    "price": 199.00,
+    "image": "assets/images/mete",
+    "tag": "Everyday",
+    "rating": 4.4,
+    "description": "Zesty and bright, perfect for daytime refresh."
+  }
+]

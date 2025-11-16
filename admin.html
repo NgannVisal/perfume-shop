@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin • Aroma Scent</title>
+
+  <link rel="stylesheet" href="css/style.css">   <!-- your main style (variables etc.) -->
+  <link rel="stylesheet" href="css/admin.css">   <!-- admin-only styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner container">
+      <div class="brand">
+        <img src="assets/logo/logo.jpg" alt="Logo" class="brand-logo-img">
+        <div class="brand-text">
+          <h1 class="brand-title">Aroma Scent — Admin</h1>
+          <p class="brand-sub">Manage products (add • edit • delete)</p>
+        </div>
+      </div>
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html" class="nav-link">← Back to shop</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container admin-container">
+    <div class="admin-head">
+      <h2>Products</h2>
+      <div class="admin-actions">
+        <button id="btnAdd" class="btn-admin btn-add">+ Add Product</button>
+        <button id="btnRefresh" class="btn-admin btn-neutral">Refresh</button>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width:60px;">ID</th>
+            <th style="width:80px;">Image</th>
+            <th>Name</th>
+            <th>Brand</th>
+            <th style="width:110px;">Price</th>
+            <th style="width:110px;">Tag</th>
+            <th style="width:90px;">Rating</th>
+            <th>Description</th>
+            <th style="width:210px;">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="rows">
+          <!-- JS renders rows -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Modal -->
+  <div id="modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 id="modalTitle">Add product</h3>
+        <button id="modalClose" class="icon-btn">✕</button>
+      </div>
+
+      <form id="productForm" class="form">
+        <input type="hidden" id="productId">
+
+        <div class="grid-2">
+          <label> Name
+            <input id="name" type="text" required>
+          </label>
+
+          <label> Brand
+            <input id="brand" type="text" required>
+          </label>
+        </div>
+
+        <div class="grid-3">
+          <label> Price
+            <input id="price" type="number" step="0.01" min="0" required>
+          </label>
+
+          <label> Tag
+            <input id="tag" type="text" placeholder="Bestseller / New">
+          </label>
+
+          <label> Rating
+            <input id="rating" type="number" step="0.1" min="0" max="5" value="4.5" required>
+          </label>
+        </div>
+
+        <label> Image URL
+          <input id="image" type="text" placeholder="assets/images/your-image.jpg" required>
+        </label>
+
+        <label> Description
+          <textarea id="description" rows="3" placeholder="Short product description..." required></textarea>
+        </label>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-admin btn-neutral" id="cancelForm">Cancel</button>
+          <button type="submit" class="btn-admin btn-add" id="submitForm">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+/* Admin page — clean, matching your theme */
+:root{
+  --accent: #c86b61;
+  --accent-dark: #a14f47;
+  --green: #27ae60;
+  --green-dark: #219150;
+  --blue: #2980b9;
+  --blue-dark: #236a98;
+  --red: #e74c3c;
+  --red-dark: #c0392b;
+  --neutral: #f1f2f6;
+  --muted: #6b6b74;
+}
+
+.admin-container { padding-top: 20px; }
+
+.admin-head{
+  display:flex; 
+  justify-content:space-between; 
+  align-items:center; gap:12px;
+   margin-bottom:14px;
+}
+.admin-head h2{ 
+  margin:0; 
+  font-size:1.35rem; 
+  font-weight:800; 
+}
+
+.admin-actions{ 
+  display:flex; 
+  gap:10px; 
+}
+
+.btn-admin{
+  border:none; 
+  border-radius:10px; 
+  padding:10px 14px; 
+  font-weight:700; 
+  cursor:pointer;
+  transition: transform .2s ease, box-shadow .2s ease; 
+  color:#fff;
+}
+.btn-admin:hover{ 
+  transform: translateY(-2px); 
+  box-shadow: 0 8px 20px rgba(0,0,0,.08); 
+}
+.btn-add{ 
+  background: linear-gradient(90deg, var(--green), var(--green-dark)); 
+}
+.btn-edit{ 
+  background: linear-gradient(90deg, var(--blue), var(--blue-dark)); 
+}
+.btn-delete{ 
+  background: linear-gradient(90deg, var(--red), var(--red-dark)); 
+}
+.btn-neutral{ 
+  background: linear-gradient(90deg, #ddd, #cfcfcf); color:#222; 
+}
+
+/* table */
+.table-wrap{ 
+  background:#fff; 
+  border-radius:14px; 
+  box-shadow:0 10px 30px rgba(0,0,0,.05); 
+  overflow:auto; 
+}
+.table{ 
+  width:100%; 
+  border-collapse:collapse; 
+}
+.table th, .table td{ 
+  padding:12px 14px; 
+  border-bottom:1px solid rgba(0,0,0,.06); 
+  vertical-align:middle; 
+}
+.table thead th{ 
+  position:sticky; 
+  top:0; 
+  background:#fff; 
+  z-index:1; 
+  font-weight:800; 
+  text-align:left; 
+}
+.table tbody tr:hover{
+  background:#fafafa; 
+}
+.table img{ 
+  width:56px; 
+  height:80px; 
+  object-fit:cover; 
+  border-radius:8px; 
+}
+
+/* modal */
+.modal{ 
+  position:fixed; 
+  inset:0; 
+  background:rgba(0,0,0,.35); 
+  display:flex; 
+  align-items:center; 
+  justify-content:center; 
+  z-index:1000; 
+  opacity:1; 
+}
+.modal.hidden{ 
+  opacity:0; 
+  pointer-events:none; 
+}
+.modal-card{ 
+  width:min(760px, 94vw); 
+  background:#fff; 
+  border-radius:16px; 
+  box-shadow:0 30px 80px rgba(0,0,0,.18); 
+  padding:16px; 
+  animation:pop .25s ease; 
+}
+@keyframes pop{ from{ transform:scale(.98); opacity:.6 } to{ transform:scale(1); opacity:1 } }
+
+.modal-head{ 
+  display:flex; 
+  align-items:center; 
+  justify-content:space-between; 
+  padding-bottom:8px;
+  border-bottom:1px solid rgba(0,0,0,.06); 
+}
+.modal-head h3{ 
+  margin:0; 
+  font-size:1.2rem; 
+  font-weight:800; 
+}
+.icon-btn{ 
+  background:transparent; 
+  border:none; 
+  cursor:pointer; 
+  padding:8px; 
+  border-radius:10px; 
+}
+.icon-btn:hover{ 
+  background:rgba(0,0,0,.05); 
+}
+
+.form{ 
+  display:flex; 
+  flex-direction:column; 
+  gap:12px; 
+  margin-top:12px; 
+}
+.grid-2{ 
+  display:grid; 
+  grid-template-columns:1fr 1fr;
+  gap:12px; 
+  }
+.grid-3{ 
+  display:grid; 
+  grid-template-columns:1fr 1fr 1fr; 
+  gap:12px; 
+}
+
+.form input, .form textarea{
+  width:100%; 
+  padding:10px 12px; 
+  border-radius:10px; 
+  border:1px solid rgba(0,0,0,.12); 
+  font-family:inherit; 
+  font-size:.98rem;
+}
+.form label{ 
+  display:block; 
+  font-weight:600; 
+  color:#222; 
+}
+.form textarea{ 
+  resize:vertical; 
+}
+
+.modal-actions{ 
+  display:flex; 
+  justify-content:flex-end; 
+  gap:10px; 
+  margin-top:6px; 
+}
+
+/* toast */
+.toast{
+  position:fixed; 
+  top:24px; 
+  right:24px; 
+  padding:12px 16px; 
+  background:#222; 
+  color:#fff; 
+  border-radius:10px; 
+  box-shadow:0 10px 30px rgba(0,0,0,.2); 
+  opacity:0; 
+  transform:translateY(-8px); 
+  transition:.35s;
+  z-index:1200; 
+  font-weight:700;
+}
+
+.toast.show{ 
+  opacity:1; 
+  transform:translateY(0); 
+}
+
+/* ===== Admin modal styles (popup) ===== */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.35);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:2000;
+  opacity:1
+}
+.modal.hidden{
+  opacity:0;
+  pointer-events:none
+}
+.modal-card{
+  width:min(760px,94vw);
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 30px 80px rgba(0,0,0,.18);
+  padding:16px;
+  animation:pop .25s ease
+}
+@keyframes pop{from{transform:scale(.98);opacity:.6}to{transform:scale(1);opacity:1}}
+.modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding-bottom:8px;
+  border-bottom:1px solid rgba(0,0,0,.06)
+}
+.modal-head h3{
+  margin:0;
+  font-size:1.2rem;
+  font-weight:800
+}
+.icon-btn{
+  background:transparent;
+  border:none;
+  cursor:pointer;
+  padding:8px;
+  border-radius:10px
+}
+.icon-btn:hover{
+  background:rgba(0,0,0,.06)
+}
+.form{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-top:12px
+}
+.grid-2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px
+}
+.grid-3{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:12px
+}
+.form input,.form textarea{
+  width:100%;
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid rgba(0,0,0,.12);
+  font-family:inherit;
+  font-size:.98rem
+}
+.form label{
+  display:block;
+  font-weight:600;
+  color:#222
+}
+.form textarea{
+  resize:vertical
+}
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:6px
+}
+.hidden{
+  display:none !important
+}
+/* Buttons (reuse your theme) */
+.btn-admin{
+  border:none;
+  border-radius:10px;
+  padding:10px 14px;
+  font-weight:700;
+  cursor:pointer;
+  transition:transform .2s, box-shadow .2s;
+  color:#fff
+}
+.btn-admin:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(0,0,0,.08)
+}
+.btn-add{
+  background:linear-gradient(90deg,#27ae60,#219150)
+}
+.btn-edit{
+  background:linear-gradient(90deg,#2980b9,#236a98)
+}
+.btn-delete{
+  background:linear-gradient(90deg,#e74c3c,#c0392b)
+}
+.btn-neutral{
+  background:linear-gradient(90deg,#ddd,#cfcfcf);
+  color:#222
+}
+/* Toast */
+.toast{
+  position:fixed;
+  top:24px;
+  right:24px;
+  padding:12px 16px;
+  background:#222;
+  color:#fff;
+  border-radius:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  opacity:0;transform:translateY(-8px);
+  transition:.35s;z-index:2200;
+  font-weight:700
+}
+.toast.show{
+  opacity:1;
+  transform:translateY(0)
+}
