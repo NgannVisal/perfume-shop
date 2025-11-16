@@ -4,42 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perfume Details | Perfume Atelier</title>
-
-  <!-- MAIN STYLE -->
-  <link rel="stylesheet" href="assets/css/style.css">
-
-  <!-- EXTRA PAGE STYLE -->
-  <link rel="stylesheet" href="assets/css/pages.css">
-
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-inner container">
-      <h1>Perfume Atelier</h1>
-      <nav class="main-nav">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="cart.html">Cart</a></li>
-        </ul>
-      </nav>
-    </div>
+  <header>
+    <h1>Perfume Atelier</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="cart.html">Cart</a>
+    </nav>
   </header>
 
-  <main class="product-detail container">
+  <main class="product-detail">
     <div class="product-image">
       <img id="product-img" src="assets/images/sample-perfume-1.jpg" alt="Perfume">
     </div>
-
     <div class="product-info">
       <h2 id="product-name">Afternoon Swim</h2>
       <p id="product-brand">Louis Vuitton</p>
       <p id="product-price">$89.00</p>
-
       <p id="product-description">
         A modern and refreshing fragrance with warm amber and smoky woods.
       </p>
-
-      <button class="btn btn-primary" onclick="addToCart()">Add to Cart</button>
+      <button class="btn-add" onclick="addToCart()">Add to Cart</button>
     </div>
   </main>
 

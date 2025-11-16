@@ -4,29 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout | Perfume Atelier</title>
-
-  <!-- FIXED CSS PATH -->
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/pages.css">
-
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-inner container">
-      <h1>Checkout</h1>
-      <nav class="main-nav">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="cart.html">Cart</a></li>
-        </ul>
-      </nav>
-    </div>
+  <header>
+    <h1>Checkout</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="cart.html">Cart</a>
+    </nav>
   </header>
 
-  <main class="checkout-form container">
+  <main class="checkout-form">
     <form onsubmit="placeOrder(event)">
       <h2>Shipping Information</h2>
-
       <label>Full Name</label>
       <input type="text" id="name" required>
 
@@ -44,7 +35,7 @@
         <option value="cod">Cash on Delivery</option>
       </select>
 
-      <button type="submit" class="btn btn-primary">Place Order</button>
+      <button type="submit" class="btn-checkout">Place Order</button>
     </form>
   </main>
 
