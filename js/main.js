@@ -26,7 +26,7 @@ const STORAGE_KEY = 'perfume_atelier_cart_v1';
 /* --- Fetch products from MySQL backend --- */
 async function fetchProducts() {
   try {
-    const res = await fetch("http://localhost:5000/api/products");
+    const API = "https://perfume-shop-api.onrender.com/api";
     if (!res.ok) throw new Error("Failed to fetch products from API");
 
     const data = await res.json();

@@ -1,5 +1,5 @@
 // ===== API base =====
-const API_BASE = "http://localhost:5000/api/products";
+const API = "https://perfume-shop-api.onrender.com/api";
 
 // ===== modal & form refs =====
 const modal = document.getElementById("adminModal");
