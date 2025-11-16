@@ -5,10 +5,16 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Admin • Aroma Scent</title>
 
-  <link rel="stylesheet" href="css/style.css">   <!-- your main style (variables etc.) -->
-  <link rel="stylesheet" href="css/admin.css">   <!-- admin-only styles -->
+  <!-- MAIN GLOBAL STYLES -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- ADMIN PAGE STYLES -->
+  <link rel="stylesheet" href="assets/css/admin.css">
+
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <header class="site-header">
     <div class="header-inner container">
@@ -19,6 +25,7 @@
           <p class="brand-sub">Manage products (add • edit • delete)</p>
         </div>
       </div>
+
       <nav class="main-nav" aria-label="Main navigation">
         <ul>
           <li><a href="index.html" class="nav-link">← Back to shop</a></li>
@@ -36,7 +43,6 @@
       </div>
     </div>
 
-    <!-- Table -->
     <div class="table-wrap">
       <table class="table">
         <thead>
@@ -71,34 +77,34 @@
         <input type="hidden" id="productId">
 
         <div class="grid-2">
-          <label> Name
+          <label>Name
             <input id="name" type="text" required>
           </label>
 
-          <label> Brand
+          <label>Brand
             <input id="brand" type="text" required>
           </label>
         </div>
 
         <div class="grid-3">
-          <label> Price
+          <label>Price
             <input id="price" type="number" step="0.01" min="0" required>
           </label>
 
-          <label> Tag
+          <label>Tag
             <input id="tag" type="text" placeholder="Bestseller / New">
           </label>
 
-          <label> Rating
+          <label>Rating
             <input id="rating" type="number" step="0.1" min="0" max="5" value="4.5" required>
           </label>
         </div>
 
-        <label> Image URL
+        <label>Image URL
           <input id="image" type="text" placeholder="assets/images/your-image.jpg" required>
         </label>
 
-        <label> Description
+        <label>Description
           <textarea id="description" rows="3" placeholder="Short product description..." required></textarea>
         </label>
 
@@ -110,7 +116,6 @@
     </div>
   </div>
 
-  <!-- Toast -->
   <div id="toast" class="toast"></div>
 
   <script src="js/admin.js"></script>

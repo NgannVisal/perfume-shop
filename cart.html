@@ -4,23 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shopping Cart | Perfume Atelier</title>
-  <link rel="stylesheet" href="css/style.css">
+
+  <!-- MAIN SITE STYLE -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- PAGE EXTRA STYLE -->
+  <link rel="stylesheet" href="assets/css/pages.css">
 </head>
 <body>
-  <header>
-    <h1>Your Cart</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="checkout.html">Checkout</a>
-    </nav>
+  <header class="site-header">
+    <div class="header-inner container">
+      <h1>Your Cart</h1>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="checkout.html">Checkout</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <main class="cart-container">
+  <main class="cart-container container">
     <div id="cart-items"></div>
 
     <div class="cart-summary">
       <h3>Total: $<span id="cart-total">0.00</span></h3>
-      <button onclick="checkout()" class="btn-checkout">Proceed to Checkout</button>
+      <button onclick="checkout()" class="btn btn-primary">Proceed to Checkout</button>
     </div>
   </main>
 

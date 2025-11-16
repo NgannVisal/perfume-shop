@@ -4,14 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact | Perfume Atelier</title>
-  <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/pages.css">
+
+  <!-- FIXED CSS PATHS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
 
 </head>
 <body>
   <header class="site-header">
     <div class="header-inner container">
-      <div class="brand"><div class="brand-logo"><img src="assets/logo/logo.jpg" alt="Logo"></div><h1>Aroma Scent</h1></div>
+      <div class="brand">
+        <div class="brand-logo">
+          <img src="assets/logo/logo.jpg" alt="Logo">
+        </div>
+        <h1>Aroma Scent</h1>
+      </div>
+
       <nav class="main-nav">
         <ul>
           <li><a href="index.html">Home</a></li>
@@ -25,10 +33,20 @@
 
   <main class="container">
     <h2>Contact Us</h2>
+
     <form class="contact-form">
-      <label>Name <input type="text" required></label>
-      <label>Email <input type="email" required></label>
-      <label>Message <input required></input></label>
+      <label>Name
+        <input type="text" required>
+      </label>
+
+      <label>Email
+        <input type="email" required>
+      </label>
+
+      <label>Message
+        <textarea required></textarea>
+      </label>
+
       <button class="btn btn-primary" type="submit">Send</button>
     </form>
   </main>
@@ -36,7 +54,7 @@
   <footer class="site-footer">
     <div class="center"><p>© 2025 Perfume Atelier — All rights reserved.</p></div>
   </footer>
-  <script src="js/pages.js"></script>
 
+  <script src="js/pages.js"></script>
 </body>
 </html>

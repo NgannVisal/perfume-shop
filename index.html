@@ -5,19 +5,17 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Aroma Scent — Modern & Bold</title>
 
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Main CSS (FIXED PATH) -->
+  <link rel="stylesheet" href="assets/css/style.css">
 
-  <!-- Google font (kept neutral, bold feel) -->
+  <!-- Google font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <!-- meta -->
+  
   <meta name="description" content="Perfume Atelier — elegant, modern perfumes. Add to cart demo with JS.">
 </head>
 <body>
-  <!-- Page container -->
   <div id="app">
 
-    <!-- Header (logo, nav, search, cart) -->
     <header class="site-header">
       <div class="header-inner container">
         <div class="brand">
@@ -40,21 +38,18 @@
         <div class="header-actions">
           <div class="search-wrap">
             <input id="searchBox" class="search-input" placeholder="Search perfumes..." aria-label="Search perfumes">
-            <button id="clearSearch" class="icon-btn" title="Clear search">✕</button>
+            <button id="clearSearch" class="icon-btn">✕</button>
           </div>
 
-          <button id="openCartBtn" class="cart-btn" aria-label="Open cart">
+          <button id="openCartBtn" class="cart-btn">
             🛒 <span id="cartCounter" class="cart-count">0</span>
           </button>
-   <!-- User Account -->
-        <div id="userBox" class="user-area"></div>
 
+          <div id="userBox" class="user-area"></div>
+        </div>
+      </div>
+    </header>
 
-    </div>
-  </div>
-</header>
-
-    <!-- Hero (full homepage hero banner) -->
     <section id="home" class="hero container">
       <div class="hero-left">
         <h2 class="hero-title">Aroma Scent</h2>
@@ -75,28 +70,21 @@
 
       <div class="hero-right">
         <div class="hero-visual">
-          <img src="assets/images/LOUIS VUITTON (CGI) Fragrance Concepts - Leroy van Drie.jpg" alt="perfume bottle" class="hero-image" />
+          <img src="assets/images/LOUIS VUITTON (CGI) Fragrance Concepts - Leroy van Drie.jpg" class="hero-image" />
           <div class="hero-tag">Bestseller</div>
           <div class="hero-price">From <strong>$58</strong></div>
         </div>
       </div>
     </section>
 
-    <!-- Featured section -->
     <section id="featured" class="section container">
       <header class="section-head">
         <h2>Featured</h2>
         <p class="muted">Hand-picked favorites</p>
       </header>
-
-      <div class="featured-grid" id="featuredList">
-        <!-- populated by JS -->
-      </div>
-</div>
-
+      <div class="featured-grid" id="featuredList"></div>
     </section>
 
-    <!-- Products section with filters and sort -->
     <section id="products" class="section container products-section">
       <div class="section-head">
         <div class="product-actions-admin">
@@ -104,62 +92,48 @@
           <button id="btnUpdate" class="btn-admin btn-edit">Update</button>
           <button id="btnDelete" class="btn-admin btn-delete">Delete</button>
 
-          <!-- Admin Modal -->
-            <div id="adminModal" class="modal hidden" aria-hidden="true">
+          <div id="adminModal" class="modal hidden">
             <div class="modal-card">
-            <div class="modal-head">
-            <h3 id="modalTitle">Add product</h3>
-            <button id="modalClose" class="icon-btn" aria-label="Close">✕</button>
+              <div class="modal-head">
+                <h3 id="modalTitle">Add product</h3>
+                <button id="modalClose" class="icon-btn">✕</button>
+              </div>
+
+              <form id="adminForm" class="form">
+                <input type="hidden" id="formMode" value="add">
+
+                <label id="idRow" class="hidden"> Product ID
+                  <input id="id" type="number">
+                </label>
+
+                <div class="grid-2">
+                  <label>Name <input id="name" type="text" required></label>
+                  <label>Brand <input id="brand" type="text" required></label>
+                </div>
+
+                <div class="grid-3">
+                  <label>Price <input id="price" type="number" step="0.01"></label>
+                  <label>Tag <input id="tag" type="text"></label>
+                  <label>Rating <input id="rating" type="number" step="0.1"></label>
+                </div>
+
+                <label>Image URL
+                  <input id="image" type="text" required>
+                </label>
+
+                <label>Description
+                  <textarea id="description" rows="3"></textarea>
+                </label>
+
+                <div class="modal-actions">
+                  <button type="button" id="cancelForm" class="btn-admin btn-neutral">Cancel</button>
+                  <button type="submit" class="btn-admin btn-add">Save</button>
+                </div>
+              </form>
             </div>
+          </div>
 
-            <form id="adminForm" class="form">
-            <!-- Mode & ID (ID is used for update) -->
-            <input type="hidden" id="formMode" value="add">
-            <label id="idRow" class="hidden"> Product ID
-        <input id="id" type="number" min="1" placeholder="e.g. 3">
-      </label>
-
-      <div class="grid-2">
-        <label> Name
-          <input id="name" type="text" required>
-        </label>
-        <label> Brand
-          <input id="brand" type="text" required>
-        </label>
-      </div>
-
-      <div class="grid-3">
-        <label> Price
-          <input id="price" type="number" step="0.01" min="0" required>
-        </label>
-        <label> Tag
-          <input id="tag" type="text" placeholder="Bestseller, New, …">
-        </label>
-        <label> Rating
-          <input id="rating" type="number" step="0.1" min="0" max="5" value="4.5" required>
-        </label>
-      </div>
-
-      <label> Image URL
-          <input id="image" type="text" placeholder="assets/images/file.jpg" required>
-      </label>
-
-
-      <label> Description
-        <textarea id="description" rows="3" required></textarea>
-      </label>
-
-      <div class="modal-actions">
-        <button type="button" id="cancelForm" class="btn-admin btn-neutral">Cancel</button>
-        <button type="submit" class="btn-admin btn-add">Save</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Tiny toast -->
-<div id="toast" class="toast"></div>
-
+          <div id="toast" class="toast"></div>
         </div>
 
         <div>
@@ -168,7 +142,7 @@
         </div>
 
         <div class="controls">
-          <select id="sortSelect" class="control-select" aria-label="Sort products">
+          <select id="sortSelect" class="control-select">
             <option value="popular">Most popular</option>
             <option value="price-asc">Price: low → high</option>
             <option value="price-desc">Price: high → low</option>
@@ -176,213 +150,97 @@
           </select>
 
           <div class="view-toggle">
-            <button id="gridViewBtn" class="icon-btn active" title="grid view">▦</button>
-            <button id="listViewBtn" class="icon-btn" title="list view">≡</button>
+            <button id="gridViewBtn" class="icon-btn active">▦</button>
+            <button id="listViewBtn" class="icon-btn">≡</button>
           </div>
         </div>
       </div>
 
-      <div id="productGrid" class="product-grid">
-        <!-- JS will render product cards here -->
-      </div>
-
+      <div id="productGrid" class="product-grid"></div>
       <div id="noResults" class="muted hidden">No products match your search.</div>
     </section>
 
-    <!-- Newsletter / Signup -->
     <section id="newsletter" class="section container newsletter-section">
       <div class="newsletter-card">
         <h3>Join the Atelier</h3>
-        <p class="muted">Get early access to new fragrances and exclusive offers.</p>
-        <form id="newsletterForm" class="newsletter-form">
-          <input type="email" id="newsletterEmail" placeholder="Your email address" required>
-          <button type="submit" class="btn btn-primary">Subscribe</button>
+        <form id="newsletterForm">
+          <input id="newsletterEmail" placeholder="Your email">
+          <button class="btn btn-primary">Subscribe</button>
         </form>
-        <p id="newsletterMsg" class="small muted"></p>
       </div>
     </section>
 
-    <!-- About block -->
-    <section id="about" class="section container">
-      <div class="about-grid">
-        <div class="about-text">
-          <h3>Our Philosophy</h3>
-          <p class="muted">We combine modern perfumery and sustainable sourcing. Minimal packaging. Maximum impact.</p>
-          <ul>
-            <li>High-quality ingredients</li>
-            <li>Small batch production</li>
-            <li>Thoughtful design</li>
-          </ul>
-        </div>
-        <div class="about-visual">
-          <img src="assets/images/LV x F1.gif" alt="perfume detail" />
-        </div>
-      </div>
-    </section>
+    <div id="modals"></div>
 
-    <!-- Checkout / Modal area (hidden by default) -->
-    <div id="modals">
-      <!-- Quick view modal inserted here by JS -->
-    </div>
-
-    <!-- Cart Drawer (hidden by default) -->
-    <aside id="cartDrawer" class="cart-drawer hidden" aria-hidden="true">
+    <aside id="cartDrawer" class="cart-drawer hidden">
       <div class="cart-header">
         <h3>Your Cart</h3>
-        <button id="closeCartBtn" class="icon-btn" aria-label="Close cart">✕</button>
+        <button id="closeCartBtn" class="icon-btn">✕</button>
       </div>
-
-      <div id="cartContent" class="cart-content">
-        <!-- Items inserted by JS -->
-      </div>
-
+      <div id="cartContent"></div>
       <div class="cart-footer">
-        <div class="cart-summary">
+        <div>
           <div class="muted">Subtotal</div>
           <div id="cartSubtotal">$0.00</div>
         </div>
-        <div class="cart-actions">
+        <div>
           <button id="clearCartBtn" class="btn btn-ghost">Clear</button>
           <button id="checkoutBtn" class="btn btn-primary">Checkout</button>
         </div>
       </div>
     </aside>
 
-    <!-- Checkout page (simple inline form shown via JS) -->
-    <section id="checkoutSection" class="section container hidden checkout-modern">
-  <header class="section-head">
-    <h2>Checkout</h2>
-    <p class="muted">Complete your order securely</p>
-  </header>
-
-  <form id="checkoutForm" class="checkout-form">
-    <div class="form-grid">
-      <label>
-        Full Name
-        <input type="text" id="fullName" required placeholder="John Doe" />
-      </label>
-      <label>
-        Email
-        <input type="email" id="email" required placeholder="john@example.com" />
-      </label>
-      <label>
-        Address
-        <input type="text" id="address" required placeholder="123 Main Street" />
-      </label>
-      <label>
-        City
-        <input type="text" id="city" required placeholder="Phnom Penh" />
-      </label>
-    </div>
-
-    <div class="payment-card">
-      <h4>💳 Payment Details</h4>
-      <div class="form-grid">
-        <label>
-          Card Number
-          <input type="text" id="cardNumber" inputmode="numeric" placeholder="4242 4242 4242 4242" required />
-        </label>
-        <label>
-          Expiry
-          <input type="text" id="cardExp" placeholder="MM/YY" required />
-        </label>
-        <label>
-          CVC
-          <input type="text" id="cardCVC" placeholder="123" required />
-        </label>
-      </div>
-    </div>
-
-    <div class="checkout-actions">
-      <button type="button" id="backToShop" class="btn btn-ghost">← Back to Shop</button>
-      <button type="submit" class="btn btn-primary btn-checkout">Place Order</button>
-    </div>
-  </form>
-
-  <div id="checkoutMsg" class="checkout-msg small muted"></div>
-</section>
-
-    <!-- Footer -->
     <footer class="site-footer">
       <div class="footer-inner container">
-        <div class="footer-col">
+        <div>
           <h4>Aroma Scent</h4>
-          <p class="muted small">Modern scents, thoughtfully made.</p>
+          <p class="small muted">Modern scents, thoughtfully made.</p>
         </div>
 
-        <div class="footer-col">
+        <div>
           <h5>Company</h5>
-          <nav class="main-nav " >
-          <ul>
-            <li><a href="about.html">About</a></li>
-            <li><a href="careers.html">Careers</a></li>
-          </ul>
-          </nav>
+          <ul><li><a href="about.html">About</a></li><li><a href="careers.html">Careers</a></li></ul>
         </div>
 
-        <div class="footer-col">
+        <div>
           <h5>Help</h5>
-          <nav class="main-nav" >
-          <ul>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="#faq">FAQ</a></li>
-          </ul>
-        </nav>
-        </div>
-
-        <div class="footer-col">
-          <h5>Follow</h5>
-          <div class="socials">
-            <a href="#" class="icon-btn">IG</a>
-            <a href="#" class="icon-btn">FB</a>
-            <a href="#" class="icon-btn">TW</a>
-          </div>
+          <ul><li><a href="contact.html">Contact</a></li><li><a href="#faq">FAQ</a></li></ul>
         </div>
       </div>
     </footer>
-
   </div>
 
-  <!-- Main JS -->
   <script src="js/main.js" defer></script>
-
-  <!-- Minimal API helper (used by main.js if needed) -->
-  <script>
-  // optional tiny fallback if fetch fails — main.js will use fetch directly
-  </script>
   <script src="js/pages.js"></script>
- <script src="js/admin.js" defer></script>
+  <script src="js/admin.js" defer></script>
 
-<script>
-const userBox = document.getElementById("userBox");
-const user = JSON.parse(localStorage.getItem("user"));
+  <script>
+    const userBox = document.getElementById("userBox");
+    const user = JSON.parse(localStorage.getItem("user"));
 
-// SHOW USER WHEN LOGGED IN
-if (user) {
-  userBox.innerHTML = `
-    <div class="user-btn logged">
-      <img src="assets/logo/login.png" class="user-icon" />
-      <span>${user.username}</span>
-      <button id="logoutBtn" class="logout-btn">Logout</button>
-    </div>
-  `;
-} else {
-  // DEFAULT SIGN IN
-  userBox.innerHTML = `
-    <a href="auth.html" class="user-btn">
-      <img src="assets/logo/login.png" class="user-icon" />
-      <span>Sign In</span>
-    </a>
-  `;
-}
+    if (user) {
+      userBox.innerHTML = `
+        <div class="user-btn logged">
+          <img src="assets/logo/login.png" class="user-icon" />
+          <span>${user.username}</span>
+          <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+      `;
+    } else {
+      userBox.innerHTML = `
+        <a href="auth.html" class="user-btn">
+          <img src="assets/logo/login.png" class="user-icon" />
+          <span>Sign In</span>
+        </a>
+      `;
+    }
 
-// LOGOUT
-document.addEventListener("click", (e) => {
-  if (e.target.id === "logoutBtn") {
-    localStorage.removeItem("user");
-    location.reload();
-  }
-});
-</script>
+    document.addEventListener("click", (e) => {
+      if (e.target.id === "logoutBtn") {
+        localStorage.removeItem("user");
+        location.reload();
+      }
+    });
+  </script>
 </body>
 </html>
